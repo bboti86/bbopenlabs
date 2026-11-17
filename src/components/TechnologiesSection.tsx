@@ -53,10 +53,6 @@ export function TechnologiesSection() {
                   {tech.roleSummary}
                 </p>
               </div>
-
-              <div className="mt-4 border-t border-[var(--color-hairline)] pt-3 text-xs text-[var(--color-muted)]">
-                AI-generated build stack
-              </div>
             </div>
           ))}
         </div>

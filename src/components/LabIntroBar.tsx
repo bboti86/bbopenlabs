@@ -139,13 +139,11 @@ export function LabIntroBar({
                   <span>Maintainer: @{labProfile.githubUsername}</span>
                   <span aria-hidden="true">·</span>
                   <span>
-                    Catalog Source:{' '}
+                    Source:{' '}
                     {syncMode === 'github-live'
-                      ? `Live GitHub API (@${labProfile.githubUsername})`
-                      : 'Structured TypeScript Catalog'}
+                      ? `GitHub (@${labProfile.githubUsername})`
+                      : 'Curated Catalog'}
                   </span>
-                  <span aria-hidden="true">·</span>
-                  <span>Antigravity-Portable</span>
                 </div>
 
                 {syncNotice && (

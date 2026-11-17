@@ -137,7 +137,7 @@ export default function App() {
           <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-8">
               <p className="text-xs font-medium text-[var(--color-muted)]">
-                BB Open Labs · @{labProfile.githubUsername} · AI-Generated Open-Source Releases
+                BB Open Labs · @{labProfile.githubUsername} · Open-Source Releases
               </p>
               <h1 className="mt-3 font-display text-4xl sm:text-5xl font-medium tracking-tight text-[var(--color-ink)] leading-[1.1]">
                 Focused Android utilities and offline-first Web PWAs.

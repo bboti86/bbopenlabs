@@ -266,7 +266,14 @@ export async function loadShowcaseCatalog(
     }
 
     const repos = (await response.json()) as GitHubRepo[];
-    const publicRepos = repos.filter((repo) => !repo.archived && !repo.fork).slice(0, 8);
+    const publicRepos = repos
+      .filter(
+        (repo) =>
+          !repo.archived &&
+          !repo.fork &&
+          repo.name.toLowerCase() !== 'bbopenlabs',
+      )
+      .slice(0, 8);
 
     if (publicRepos.length === 0) {
       return {

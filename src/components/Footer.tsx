@@ -16,7 +16,7 @@ export function Footer() {
               {labProfile.siteName}
             </p>
             <p className="max-w-xl text-xs leading-relaxed text-[var(--color-muted)]">
-              {labProfile.antigravityPortabilityNote}
+              {labProfile.shortIntro}
             </p>
           </div>
         </div>

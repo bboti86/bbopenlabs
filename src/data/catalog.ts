@@ -73,7 +73,6 @@ export interface LabProfile {
   aiGenerationNote: string;
   githubUsername: string;
   githubUrl: string;
-  antigravityPortabilityNote: string;
 }
 
 const baseUrl = import.meta.env.BASE_URL.endsWith('/')
@@ -98,15 +97,13 @@ export const labProfile: LabProfile = {
     'Every application is built to run reliably offline, respect user privacy with zero tracking, and keep source code transparent and inspectable on GitHub.',
   ],
   aiGenerationNote:
-    'All applications, release workflows, and editorial showcase visuals in BB Open Labs are AI-generated and refined iteratively in the open.',
+    'All applications and release workflows in BB Open Labs are open-source and refined iteratively in the open.',
   githubUsername: 'bboti86',
   githubUrl: 'https://github.com/bboti86',
-  antigravityPortabilityNote:
-    'Structured around a single typed TypeScript catalog so the entire codebase moves directly into Google Antigravity without vendor lock-in.',
 };
 
 export const technologiesDisclosure =
-  'The applications showcased here—along with their architectural scaffolds and visual showcase previews—are AI-generated using the languages and frameworks below.';
+  'The applications showcased here are built with the languages, frameworks, and web standards below.';
 
 export const technologiesUsed: TechnologyEntry[] = [
   {
