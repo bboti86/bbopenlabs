@@ -1,0 +1,6 @@
+{
+  "name": "BB Open Labs",
+  "description": "Open-source Android applications and web-based PWAs by BB Open Labs, featuring functionality summaries, version histories, and GitHub links.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
