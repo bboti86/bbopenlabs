@@ -221,9 +221,46 @@ async function fetchRepoCommits(
   }
 }
 
+const CACHE_KEY_PREFIX = 'bb-open-labs-gh-cache-v1:';
+const CACHE_TTL_MS = 10 * 60 * 1000;
+
+function readCachedCatalog(username: string): GitHubSyncResult | null {
+  try {
+    if (typeof window === 'undefined' || !window.localStorage) {
+      return null;
+    }
+    const raw = window.localStorage.getItem(`${CACHE_KEY_PREFIX}${username}`);
+    if (!raw) {
+      return null;
+    }
+    const parsed = JSON.parse(raw) as { savedAt: number; result: GitHubSyncResult };
+    if (Date.now() - parsed.savedAt > CACHE_TTL_MS) {
+      return null;
+    }
+    return parsed.result;
+  } catch {
+    return null;
+  }
+}
+
+function writeCachedCatalog(username: string, result: GitHubSyncResult): void {
+  try {
+    if (typeof window === 'undefined' || !window.localStorage) {
+      return;
+    }
+    window.localStorage.setItem(
+      `${CACHE_KEY_PREFIX}${username}`,
+      JSON.stringify({ savedAt: Date.now(), result }),
+    );
+  } catch {
+    // Ignore storage quota errors
+  }
+}
+
 export async function loadShowcaseCatalog(
   username: string,
   signal?: AbortSignal,
+  forceRefresh = false,
 ): Promise<GitHubSyncResult> {
   const cleanUsername = username.trim();
   const nowIso = new Date().toISOString();
@@ -235,6 +272,13 @@ export async function loadShowcaseCatalog(
       repoCount: curatedApps.length,
       syncedAt: nowIso,
     };
+  }
+
+  if (!forceRefresh) {
+    const cached = readCachedCatalog(cleanUsername);
+    if (cached) {
+      return cached;
+    }
   }
 
   try {
@@ -352,12 +396,14 @@ export async function loadShowcaseCatalog(
       }),
     );
 
-    return {
+    const liveResult: GitHubSyncResult = {
       apps: hydratedApps,
       mode: 'github-live',
       repoCount: hydratedApps.length,
       syncedAt: nowIso,
     };
+    writeCachedCatalog(cleanUsername, liveResult);
+    return liveResult;
   } catch (err) {
     if (err instanceof DOMException && err.name === 'AbortError') {
       throw err;

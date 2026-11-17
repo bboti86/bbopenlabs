@@ -32,10 +32,10 @@ export default function App() {
     window.localStorage.setItem('bb-open-labs-theme', isDark ? 'dark' : 'light');
   }, [isDark]);
 
-  const syncFromGitHub = useCallback(async (signal?: AbortSignal) => {
+  const syncFromGitHub = useCallback(async (signal?: AbortSignal, forceRefresh = false) => {
     setIsSyncing(true);
     try {
-      const result = await loadShowcaseCatalog(labProfile.githubUsername, signal);
+      const result = await loadShowcaseCatalog(labProfile.githubUsername, signal, forceRefresh);
       setApps(result.apps);
       setSyncMode(result.mode);
       setSyncNotice(result.notice);
@@ -129,7 +129,7 @@ export default function App() {
         syncMode={syncMode}
         isSyncing={isSyncing}
         syncNotice={syncNotice}
-        onRefreshGitHub={() => void syncFromGitHub()}
+        onRefreshGitHub={() => void syncFromGitHub(undefined, true)}
       />
 
       <main className="flex-1">
